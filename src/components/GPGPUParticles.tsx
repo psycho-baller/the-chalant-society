@@ -222,8 +222,37 @@ function GPGPUParticleSimulation({
   const forceReset = useRef(false);
 
   const pointerVector = useMemo(() => new THREE.Vector3(), []);
+  const viewportPointer = useMemo(() => new THREE.Vector2(999, 999), []);
   const mouseDirection = useMemo(() => new THREE.Vector3(), []);
   const projectedMousePosition = useMemo(() => new THREE.Vector3(), []);
+  const pointerInsideViewport = useRef(false);
+
+  useEffect(() => {
+    const movePointer = (event: PointerEvent) => {
+      viewportPointer.set(
+        (event.clientX / window.innerWidth) * 2 - 1,
+        -(event.clientY / window.innerHeight) * 2 + 1
+      );
+      pointerInsideViewport.current = true;
+    };
+
+    const clearPointer = () => {
+      pointerInsideViewport.current = false;
+      viewportPointer.set(999, 999);
+    };
+
+    window.addEventListener("pointermove", movePointer, { passive: true });
+    window.addEventListener("pointerdown", movePointer, { passive: true });
+    window.addEventListener("pointerleave", clearPointer);
+    window.addEventListener("blur", clearPointer);
+
+    return () => {
+      window.removeEventListener("pointermove", movePointer);
+      window.removeEventListener("pointerdown", movePointer);
+      window.removeEventListener("pointerleave", clearPointer);
+      window.removeEventListener("blur", clearPointer);
+    };
+  }, [viewportPointer]);
 
   useEffect(() => {
     const backupTarget = gl.getRenderTarget();
@@ -303,15 +332,19 @@ function GPGPUParticleSimulation({
 
     const time = state.clock.getElapsedTime();
     const dt = Math.min(delta, 0.05);
-    const { pointer, camera } = state;
+    const { camera } = state;
 
-    pointerVector.set(pointer.x, pointer.y, 0.5).unproject(camera);
-    mouseDirection.copy(pointerVector).sub(camera.position).normalize();
+    if (pointerInsideViewport.current) {
+      pointerVector.set(viewportPointer.x, viewportPointer.y, 0.5).unproject(camera);
+      mouseDirection.copy(pointerVector).sub(camera.position).normalize();
 
-    const targetZ = -1.5;
-    let distance = (targetZ - camera.position.z) / mouseDirection.z;
-    if (Math.abs(mouseDirection.z) < 0.001) distance = 4.0;
-    projectedMousePosition.copy(camera.position).addScaledVector(mouseDirection, distance);
+      const targetZ = -1.5;
+      let distance = (targetZ - camera.position.z) / mouseDirection.z;
+      if (Math.abs(mouseDirection.z) < 0.001) distance = 4.0;
+      projectedMousePosition.copy(camera.position).addScaledVector(mouseDirection, distance);
+    } else {
+      projectedMousePosition.set(999, 999, 999);
+    }
 
     const backupTarget = gl.getRenderTarget();
 

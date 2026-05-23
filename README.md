@@ -1,19 +1,10 @@
-# GPGPU Particle Crowd Simulation
+# The Chalant Society
 
-A real-time Three.js / React crowd study that renders 524,288 glowing particles as a group of procedural human figures. Particle positions are simulated on the GPU with floating-point framebuffer ping-pong, curl-noise motion, mouse interaction, and bloom post-processing.
+Website for The Chalant Society: a community and coaching project around rejection therapy, social courage, charisma, and care.
 
-## Features
+The site uses a fixed WebGL particle-crowd background as the central metaphor: one standout figure surrounded by a crowd. Foreground copy scrolls over the scene while the camera slowly pulls back to reveal the wider social context.
 
-- 524,288 particles rendered from a 512 x 1024 position texture
-- GPU simulation pass with double-buffered render targets
-- Procedural crowd target generation in a Web Worker
-- Central standout figure with higher luminance and motion detail
-- Presets for structured crowd forms, fluid drift, dissolution, and a spiral vortex
-- Live controls for chaos, curl noise, return speed, particle size, and mouse repulsion
-- Color palette switching and cinematic bloom/noise post-processing
-- Runtime capability check for supported floating-point render targets
-
-## Tech Stack
+## Stack
 
 - React 19
 - Vite 6
@@ -28,7 +19,6 @@ A real-time Three.js / React crowd study that renders 524,288 glowing particles 
 
 - Node.js 20 or newer
 - A browser with WebGL 2 support and floating-point or half-float color buffer render targets
-- A discrete GPU or high-performance integrated GPU is recommended
 
 No API key or backend service is required.
 
@@ -39,17 +29,13 @@ npm install
 npm run dev
 ```
 
-The development server runs on port 3000 by default:
-
-```text
-http://localhost:3000
-```
+The Vite server defaults to port 3000. If that port is busy, Vite will choose the next available port.
 
 ## Scripts
 
 ```bash
-npm run dev      # Start the Vite development server
-npm run build    # Type-check and build the production bundle
+npm run dev      # Start the development server
+npm run build    # Build the production bundle
 npm run preview  # Preview the production build locally
 npm run lint     # Run TypeScript without emitting files
 npm run clean    # Remove generated build/server artifacts
@@ -59,26 +45,18 @@ npm run clean    # Remove generated build/server artifacts
 
 ```text
 src/
-  App.tsx                         # HUD, presets, sliders, and palette state
+  App.tsx                         # Website foreground, copy, CTAs, scroll progress
   components/
-    Scene.tsx                     # React Three Fiber canvas, controls, post-processing
-    GPGPUParticles.tsx           # GPU capability checks, FBO setup, simulation loop
+    Scene.tsx                     # React Three Fiber canvas and scroll-driven camera rig
+    GPGPUParticles.tsx            # GPGPU simulation setup and particle render loop
   shaders/
     simulationShader.ts           # Position simulation and curl-noise motion
     renderShader.ts               # Particle rendering, coloring, sizing, alpha
   utils/
     proceduralHuman.ts            # Procedural crowd and figure target generation
   workers/
-    crowdTextureWorker.ts         # Off-main-thread texture data generation
+    crowdTextureWorker.ts         # Off-main-thread particle texture generation
 ```
-
-## Interaction
-
-- Drag to orbit around the crowd.
-- Move the cursor over the scene to repel nearby particles.
-- Use the left controls to switch presets and tune simulation uniforms.
-- Use the info button to inspect the GPGPU architecture notes.
-- Use "Explode & Reshuffle" to reset particles into the dispersed starting field.
 
 ## Build
 

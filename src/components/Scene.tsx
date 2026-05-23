@@ -1,6 +1,8 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
 import { EffectComposer, Bloom, Noise } from "@react-three/postprocessing";
+import { useMemo } from "react";
+import * as THREE from "three";
 import GPGPUParticles from "./GPGPUParticles";
 
 interface SceneProps {
@@ -15,6 +17,35 @@ interface SceneProps {
   goldColor: string;
   standoutColor: string;
   resetSignal: number;
+  scrollProgress: number;
+}
+
+function smoothStep(progress: number) {
+  return progress * progress * (3 - 2 * progress);
+}
+
+function CameraRig({ scrollProgress }: { scrollProgress: number }) {
+  const { camera } = useThree();
+  const startPosition = useMemo(() => new THREE.Vector3(0.16, 0.72, 2.35), []);
+  const endPosition = useMemo(() => new THREE.Vector3(-0.82, 2.1, 7.35), []);
+  const startTarget = useMemo(() => new THREE.Vector3(0, 0.72, -1.38), []);
+  const endTarget = useMemo(() => new THREE.Vector3(0, 0.32, -3.12), []);
+  const position = useMemo(() => new THREE.Vector3(), []);
+  const target = useMemo(() => new THREE.Vector3(), []);
+
+  useFrame(() => {
+    const revealProgress = smoothStep(Math.min(1, scrollProgress * 1.08));
+    const orbit = Math.sin(revealProgress * Math.PI) * 0.34;
+
+    position.lerpVectors(startPosition, endPosition, revealProgress);
+    position.x += orbit;
+    target.lerpVectors(startTarget, endTarget, revealProgress);
+
+    camera.position.lerp(position, 0.075);
+    camera.lookAt(target);
+  });
+
+  return null;
 }
 
 export default function Scene({
@@ -28,12 +59,13 @@ export default function Scene({
   amberColor,
   goldColor,
   standoutColor,
-  resetSignal
+  resetSignal,
+  scrollProgress
 }: SceneProps) {
   return (
     <div id="canvas-container" className="w-full h-full relative" style={{ background: "#050508" }}>
       <Canvas
-        camera={{ position: [0, 1.2, 5.0], fov: 50, near: 0.1, far: 100 }}
+        camera={{ position: [0.16, 0.72, 2.35], fov: 48, near: 0.1, far: 100 }}
         gl={{
           antialias: true,
           powerPreference: "high-performance",
@@ -59,17 +91,7 @@ export default function Scene({
           resetSignal={resetSignal}
         />
 
-        {/* 2. Elegant cinematic camera limits for deep orbital views */}
-        <OrbitControls
-          enableDamping
-          dampingFactor={0.05}
-          minDistance={1.5}
-          maxDistance={15.0}
-          enablePan={false}
-          maxPolarAngle={Math.PI / 2 + 0.15} // Let user look slightly upwards
-          minPolarAngle={1.0}
-          target={[0, 0.4, -0.6]} // Target center of gravity of the crowd
-        />
+        <CameraRig scrollProgress={scrollProgress} />
 
         {/* 3. Epic Lusion bloom glow setup */}
         <EffectComposer>
@@ -77,9 +99,9 @@ export default function Scene({
             mipmapBlur
             luminanceThreshold={0.2} // Threshold to ensure background is slate-black
             luminanceSmoothing={0.9}
-            intensity={1.8} // Rich, ambient golden glowing light leakage
+            intensity={0.75}
           />
-          <Noise opacity={0.02} />
+          <Noise opacity={0.012} />
         </EffectComposer>
       </Canvas>
     </div>

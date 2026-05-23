@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { ArrowRight, Calendar, MessageCircle } from "lucide-react";
+import { ArrowRight, Calendar, MessageCircle, Mail } from "lucide-react";
 
 const Scene = lazy(() => import("./components/Scene"));
 
@@ -79,64 +79,117 @@ export default function App() {
       <div className="grain-overlay" />
 
       <div className="relative z-10">
-        <header className="fixed left-0 right-0 top-0 z-20 flex items-center justify-between px-5 py-5 md:px-10">
+        <header className="site-header">
           <a className="site-mark" href="#top" aria-label="The Chalant Society home">
             The Chalant Society
           </a>
-          <nav className="hidden items-center gap-8 text-[0.68rem] uppercase tracking-[0.32em] text-[#f5f2ea]/58 md:flex">
-            <a className="nav-link" href="#practice">practice</a>
-            <a className="nav-link" href="#work">work</a>
-            <a className="nav-link" href="#show-up">show up</a>
+          <nav className="hidden items-center gap-8 md:flex">
+            <a className="nav-link" href="#manifesto">the mission</a>
+            <a className="nav-link" href="#community">the community</a>
+            <a className="nav-link" href="#coaching">1-on-1 coaching</a>
           </nav>
+          <div className="flex items-center gap-4">
+            <a className="header-cta" href="https://discord.gg/chalant" target="_blank" rel="noreferrer">
+              <MessageCircle size={13} />
+              <span>Join Discord</span>
+            </a>
+          </div>
         </header>
 
         <section id="top" className="section-frame min-h-screen items-end pb-[12vh] pt-28">
-          <div className="max-w-[88rem]">
+          <div className="max-w-[88rem] w-full">
             <p className="eyebrow">courage / charisma / care</p>
             <h1 className="hero-title">
               you&apos;ve been trained to be nonchalant.
             </h1>
             <p className="hero-subcopy">
-              chalant is the opposite. it means caring on purpose, taking up space,
-              and putting your effort where everyone can see it.
+              caring is dangerous. aloof is safe. we built the permission structure to break the script: to care out loud, expand your comfort zone, and show up with unapologetic effort.
             </p>
+            <div className="cta-row">
+              <a className="primary-cta" href="https://discord.gg/chalant" target="_blank" rel="noreferrer">
+                <MessageCircle size={18} />
+                join the discord
+                <ArrowRight size={18} />
+              </a>
+              <a className="secondary-cta" href="#coaching">
+                explore 1-on-1 coaching
+              </a>
+            </div>
           </div>
         </section>
 
-        <section id="practice" className="section-frame min-h-screen justify-center">
+        <section id="manifesto" className="section-frame min-h-screen justify-center">
           <div className="statement-block">
-            <p className="section-kicker">the problem</p>
+            <p className="section-kicker">the manifesto</p>
             <h2>
-              most people are not calm.
+              apathy is an armor.
               <br />
-              they are rehearsed.
+              it is also a cage.
             </h2>
             <div className="spoken-copy">
               <p>say less. want less. risk less.</p>
               <p>pretend you did not care, so rejection has nowhere to land.</p>
-              <p>that script is clean. it is also boring.</p>
+              <p>we call it being cool. we call it being calm. but it is just rehearsed fear.</p>
+              <p>being <em>chalant</em> is the cure. it means caring on purpose, trying in public, taking up space, and showing up with absolute presence.</p>
             </div>
           </div>
         </section>
 
-        <section id="work" className="section-frame min-h-screen justify-center">
-          <div className="split-section">
-            <div>
-              <p className="section-kicker">what we do</p>
-              <h2>we build the permission structure.</h2>
-            </div>
-            <div className="work-list">
-              <p>
-                small-group rejection therapy challenges that move you one percent
-                outside your comfort zone.
-              </p>
-              <p>
-                weekly meetups where being bold is not weird. it is the room.
-              </p>
-              <p>
-                1-on-1 coaching for communication, social courage, and living with
-                more deliberate effort.
-              </p>
+        <section id="community" className="section-frame min-h-screen justify-center py-20">
+          <div className="w-full max-w-[88rem]">
+            <p className="section-kicker">our offerings</p>
+            <h2 className="section-title-large">we build the permission structure.</h2>
+            
+            <div className="offerings-grid">
+              {/* Card 1: The Community & Meetups (Priority 1) */}
+              <div className="offering-card priority-primary">
+                <span className="card-badge">priority 01 / community</span>
+                <div className="card-content">
+                  <h3>the weekly challenges & discord</h3>
+                  <p>
+                    step outside your comfort zone as a team. we organize weekly, filmed group challenges (inspired by rejection therapy) to shatter social anxiety and build presence in public spaces.
+                  </p>
+                  <p>
+                    our discord is the 24/7 clubhouse where being chalant is the norm. share your wins, find accountability, and join a crew of courage-builders.
+                  </p>
+                </div>
+                <div className="card-actions">
+                  <a className="primary-cta" href="https://discord.gg/chalant" target="_blank" rel="noreferrer">
+                    <MessageCircle size={18} />
+                    enter the discord
+                    <ArrowRight size={18} />
+                  </a>
+                  <a className="secondary-cta" href="https://www.instagram.com/thechalantsociety/" target="_blank" rel="noreferrer">
+                    <Calendar size={18} />
+                    meetup schedule
+                  </a>
+                </div>
+              </div>
+
+              {/* Card 2: 1-on-1 Coaching (Priority 2) */}
+              <div id="coaching" className="offering-card">
+                <span className="card-badge">priority 02 / coaching</span>
+                <div className="card-content">
+                  <h3>tailored systems & expansion coaching</h3>
+                  <p>
+                    stop holding yourself back. i work 1-on-1 with select individuals to design custom systems for communication, focus, and time management—grounded in real-world experiments.
+                  </p>
+                  <p>
+                    together, we run personalized comfort-zone expansions to take your social leadership, charisma, and clarity to the next level.
+                  </p>
+                </div>
+                <div className="card-actions">
+                  <a className="primary-cta" href="https://cal.com/rami-maalouf/chalant-discovery" target="_blank" rel="noreferrer">
+                    <Calendar size={18} />
+                    schedule a call
+                    <ArrowRight size={18} />
+                  </a>
+                  <a className="secondary-cta" href="mailto:ramimaalouf.me@gmail.com?subject=Chalant%20Society%20Coaching%20Inquiry">
+                    <Mail size={18} />
+                    inquire via email
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -154,18 +207,17 @@ export default function App() {
             <p className="section-kicker">the invitation</p>
             <h2>are you chalant enough to show up?</h2>
             <p>
-              you do not need to become fearless. you just need one room where
-              effort is normal, and one person willing to go first.
+              you do not need to become fearless. you just need one room where effort is celebrated, and a group of people willing to go first.
             </p>
             <div className="cta-row">
-              <a className="primary-cta" href="https://www.instagram.com/thechalantsociety/" target="_blank" rel="noreferrer">
-                <Calendar size={18} />
-                join a meetup
+              <a className="primary-cta" href="https://discord.gg/chalant" target="_blank" rel="noreferrer">
+                <MessageCircle size={18} />
+                join the community
                 <ArrowRight size={18} />
               </a>
-              <a className="secondary-cta" href="https://www.instagram.com/thechalantsociety/" target="_blank" rel="noreferrer">
-                <MessageCircle size={18} />
-                ask about coaching
+              <a className="secondary-cta" href="mailto:ramimaalouf.me@gmail.com?subject=Chalant%20Society%20Coaching%20Inquiry">
+                <Mail size={18} />
+                apply for coaching
               </a>
             </div>
           </div>

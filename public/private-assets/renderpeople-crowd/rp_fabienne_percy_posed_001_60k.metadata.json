@@ -1,0 +1,64 @@
+{
+  "source": "/Users/rami/Downloads/renderpeople_glb_models/rp_fabienne_percy_posed_001_60k.glb",
+  "output": "public/private-assets/renderpeople-crowd/rp_fabienne_percy_posed_001_60k.bin",
+  "colorOutput": null,
+  "basecolor": null,
+  "particles": 32768,
+  "vertices": 33714,
+  "triangles": 59961,
+  "targetHeight": 2.05,
+  "footY": -1.12,
+  "centerZ": 0,
+  "yawDegrees": 180,
+  "flipTextureV": false,
+  "sceneBounds": {
+    "min": [
+      -0.39117900304521924,
+      -1.12,
+      -0.2860039861367354
+    ],
+    "max": [
+      0.39117900304521924,
+      0.9299999999999997,
+      0.2860039861367354
+    ]
+  },
+  "heightBands": [
+    {
+      "name": "feetAndLowerLegs",
+      "min": 0,
+      "max": 0.34,
+      "share": 0.3,
+      "importance": 1.25,
+      "particles": 9831,
+      "triangleCandidates": 7768
+    },
+    {
+      "name": "upperLegsAndHips",
+      "min": 0.34,
+      "max": 0.54,
+      "share": 0.28,
+      "importance": 1.05,
+      "particles": 9175,
+      "triangleCandidates": 11149
+    },
+    {
+      "name": "torsoAndArms",
+      "min": 0.54,
+      "max": 0.76,
+      "share": 0.3,
+      "importance": 0.85,
+      "particles": 9830,
+      "triangleCandidates": 16335
+    },
+    {
+      "name": "headAndShoulders",
+      "min": 0.76,
+      "max": 1.01,
+      "share": 0.12,
+      "importance": 0.55,
+      "particles": 3932,
+      "triangleCandidates": 24709
+    }
+  ]
+}

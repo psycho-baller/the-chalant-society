@@ -1,0 +1,64 @@
+{
+  "source": "/Users/rami/Downloads/rp_posedplus_00068_18/extracted/rp_posedplus_00068_18_300k/rp_posedplus_00068_18_300k.glb",
+  "output": "public/private-assets/renderpeople/rp_posedplus_00068_18_300k_standout.bin",
+  "colorOutput": "public/private-assets/renderpeople/rp_posedplus_00068_18_300k_standout_color.bin",
+  "basecolor": "/Users/rami/Downloads/rp_posedplus_00068_18/extracted/rp_posedplus_00068_18_300k/tex/rp_posedplus_00068_18_8k_basecolor.jpg",
+  "particles": 65536,
+  "vertices": 155630,
+  "triangles": 300066,
+  "targetHeight": 2.05,
+  "footY": -1.12,
+  "centerZ": 0,
+  "yawDegrees": 180,
+  "flipTextureV": false,
+  "sceneBounds": {
+    "min": [
+      -0.2820420625817068,
+      -1.12,
+      -0.3074842683947814
+    ],
+    "max": [
+      0.2820420625817068,
+      0.9299999999999997,
+      0.3074842683947814
+    ]
+  },
+  "heightBands": [
+    {
+      "name": "feetAndLowerLegs",
+      "min": 0,
+      "max": 0.34,
+      "share": 0.3,
+      "importance": 1.25,
+      "particles": 19661,
+      "triangleCandidates": 78815
+    },
+    {
+      "name": "upperLegsAndHips",
+      "min": 0.34,
+      "max": 0.54,
+      "share": 0.28,
+      "importance": 1.05,
+      "particles": 18350,
+      "triangleCandidates": 49760
+    },
+    {
+      "name": "torsoAndArms",
+      "min": 0.54,
+      "max": 0.76,
+      "share": 0.3,
+      "importance": 0.85,
+      "particles": 19661,
+      "triangleCandidates": 79101
+    },
+    {
+      "name": "headAndShoulders",
+      "min": 0.76,
+      "max": 1.01,
+      "share": 0.12,
+      "importance": 0.55,
+      "particles": 7864,
+      "triangleCandidates": 92390
+    }
+  ]
+}

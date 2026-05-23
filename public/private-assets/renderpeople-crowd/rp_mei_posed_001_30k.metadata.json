@@ -1,0 +1,64 @@
+{
+  "source": "/Users/rami/Downloads/renderpeople_glb_models/rp_mei_posed_001_30k.glb",
+  "output": "public/private-assets/renderpeople-crowd/rp_mei_posed_001_30k.bin",
+  "colorOutput": null,
+  "basecolor": null,
+  "particles": 32768,
+  "vertices": 17368,
+  "triangles": 30004,
+  "targetHeight": 2.05,
+  "footY": -1.12,
+  "centerZ": 0,
+  "yawDegrees": 180,
+  "flipTextureV": false,
+  "sceneBounds": {
+    "min": [
+      -0.3239337763595783,
+      -1.12,
+      -0.36932701970014986
+    ],
+    "max": [
+      0.3239337763595783,
+      0.9299999999999997,
+      0.36932701970014986
+    ]
+  },
+  "heightBands": [
+    {
+      "name": "feetAndLowerLegs",
+      "min": 0,
+      "max": 0.34,
+      "share": 0.3,
+      "importance": 1.25,
+      "particles": 9831,
+      "triangleCandidates": 5728
+    },
+    {
+      "name": "upperLegsAndHips",
+      "min": 0.34,
+      "max": 0.54,
+      "share": 0.28,
+      "importance": 1.05,
+      "particles": 9175,
+      "triangleCandidates": 3928
+    },
+    {
+      "name": "torsoAndArms",
+      "min": 0.54,
+      "max": 0.76,
+      "share": 0.3,
+      "importance": 0.85,
+      "particles": 9830,
+      "triangleCandidates": 12401
+    },
+    {
+      "name": "headAndShoulders",
+      "min": 0.76,
+      "max": 1.01,
+      "share": 0.12,
+      "importance": 0.55,
+      "particles": 3932,
+      "triangleCandidates": 7947
+    }
+  ]
+}

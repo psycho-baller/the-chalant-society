@@ -114,7 +114,7 @@ function CrowdTextureLoader(props: GPGPUParticlesProps & { textureType: THREE.Te
   }
 
   if (!textureData) {
-    return <GpuStatusMessage>Preparing particle field...</GpuStatusMessage>;
+    return null;
   }
 
   return <GPGPUParticleSimulation {...props} textureData={textureData} />;

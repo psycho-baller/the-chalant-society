@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { ArrowRight, Calendar, MessageCircle } from "lucide-react";
-import Scene from "./components/Scene";
+
+const Scene = lazy(() => import("./components/Scene"));
 
 const SIMULATION = {
   chaos: 0,
@@ -47,13 +48,30 @@ function useScrollProgress() {
   return progress;
 }
 
+function useDeferredSceneReady() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setReady(true));
+
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  return ready;
+}
+
 export default function App() {
   const scrollProgress = useScrollProgress();
+  const sceneReady = useDeferredSceneReady();
 
   return (
     <main className="min-h-screen bg-[#030305] text-[#f5f2ea] selection:bg-[#ff7b00] selection:text-black">
-      <div className="fixed inset-0 z-0">
-        <Scene {...SIMULATION} scrollProgress={scrollProgress} />
+      <div className="fixed inset-0 z-0 bg-[#030305]">
+        {sceneReady && (
+          <Suspense fallback={null}>
+            <Scene {...SIMULATION} scrollProgress={scrollProgress} />
+          </Suspense>
+        )}
       </div>
 
       <div className="fixed inset-0 z-[1] pointer-events-none bg-[radial-gradient(circle_at_54%_36%,transparent_0,rgba(3,3,5,0.08)_28%,rgba(3,3,5,0.78)_82%)]" />
